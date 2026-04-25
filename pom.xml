@@ -63,7 +63,7 @@
 
         <!-- CVE-2022-1471 (SnakeYAML RCE) — CRITICAL -->
         <!-- Transitive via spring-boot-starter; Fix: 2.0+ -->
-        <snakeyaml.version>1.30</snakeyaml.version>
+        <snakeyaml.version>2.6</snakeyaml.version>
 
         <!-- CVE-2021-29425 (Apache Commons IO) — MEDIUM -->
         <!-- Fix: upgrade to 2.7+ -->
