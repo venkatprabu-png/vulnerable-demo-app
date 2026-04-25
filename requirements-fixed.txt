@@ -9,7 +9,7 @@ requests==2.31.0
 setuptools==68.0.0
 
 # CVE-2023-37276 fixed (was 3.8.1)
-aiohttp==3.8.6
+aiohttp==3.13.5
 
 # CVE-2022-42969 fixed (was 1.10.0)
 py==1.11.0
