@@ -27,7 +27,7 @@ ipython==8.12.3
 Flask==2.3.3
 
 # CVE-2022-29217 fixed (was 2.3.0)
-PyJWT==2.8.0
+PyJWT==2.12.1
 
 # CVE-2023-43804 fixed (was 1.26.14)
 urllib3==1.26.18
