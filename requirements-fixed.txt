@@ -21,7 +21,7 @@ numpy==1.24.4
 mistune==2.0.5
 
 # CVE-2022-21699 fixed (was 7.29.0)
-ipython==8.12.3
+ipython==9.13.0
 
 # CVE-2023-30861 fixed (was 2.2.5)
 Flask==2.3.3
