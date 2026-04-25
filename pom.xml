@@ -59,7 +59,7 @@
 
         <!-- CVE-2023-44487 (HTTP/2 Rapid Reset — Tomcat) — HIGH -->
         <!-- Fix: upgrade to 10.1.14+ / 9.0.81+ -->
-        <tomcat.version>9.0.60</tomcat.version>
+        <tomcat.version>11.0.21</tomcat.version>
 
         <!-- CVE-2022-1471 (SnakeYAML RCE) — CRITICAL -->
         <!-- Transitive via spring-boot-starter; Fix: 2.0+ -->
