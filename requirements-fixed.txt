@@ -18,7 +18,7 @@ py==1.11.0
 numpy==1.24.4
 
 # CVE-2022-34749 fixed (was 0.8.4)
-mistune==2.0.5
+mistune==3.2.0
 
 # CVE-2022-21699 fixed (was 7.29.0)
 ipython==8.12.3
