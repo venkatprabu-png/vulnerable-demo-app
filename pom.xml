@@ -40,7 +40,7 @@
 
         <!-- CVE-2022-42003 / CVE-2022-42004 — HIGH (Jackson databind) -->
         <!-- Fix: upgrade to 2.14.0+ -->
-        <jackson.version>2.13.2</jackson.version>
+        <jackson.version>2.21.2</jackson.version>
 
         <!-- CVE-2023-20883 (Spring Boot Actuator DoS) — HIGH -->
         <!-- Already covered by spring.boot.version above; listed for clarity -->
