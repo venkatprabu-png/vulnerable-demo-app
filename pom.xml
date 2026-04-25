@@ -67,7 +67,7 @@
 
         <!-- CVE-2021-29425 (Apache Commons IO) — MEDIUM -->
         <!-- Fix: upgrade to 2.7+ -->
-        <commons-io.version>2.6</commons-io.version>
+        <commons-io.version>2.22.0</commons-io.version>
 
         <!-- CVE-2022-25857 (SnakeYAML DoS) — HIGH — also fixed by 2.0+ -->
         <!-- already pinned above via snakeyaml.version -->
