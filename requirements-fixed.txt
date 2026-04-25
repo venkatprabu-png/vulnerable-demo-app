@@ -15,7 +15,7 @@ aiohttp==3.8.6
 py==1.11.0
 
 # CVE-2021-41496 fixed (was 1.21.0)
-numpy==1.24.4
+numpy==2.4.4
 
 # CVE-2022-34749 fixed (was 0.8.4)
 mistune==2.0.5
