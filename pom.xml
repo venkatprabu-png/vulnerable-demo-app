@@ -47,7 +47,7 @@
 
         <!-- CVE-2021-37137 / CVE-2021-37136 — HIGH (Netty) -->
         <!-- Transitive via spring-webflux; Fix: 4.1.68.Final+ -->
-        <netty.version>4.1.65.Final</netty.version>
+        <netty.version>4.2.12.Final</netty.version>
 
         <!-- CVE-2022-23307 (Apache Chainsaw via Log4j extras) — CRITICAL -->
         <!-- Fix: remove or upgrade log4j-extras; pinned here explicitly -->
