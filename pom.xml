@@ -36,7 +36,7 @@
 
         <!-- CVE-2022-22965 (Spring4Shell) — CRITICAL -->
         <!-- Fix: upgrade spring-webmvc to 5.3.18+ (pulled in by spring-boot 2.6.5+) -->
-        <spring.boot.version>2.6.3</spring.boot.version>
+        <spring.boot.version>4.0.6</spring.boot.version>
 
         <!-- CVE-2022-42003 / CVE-2022-42004 — HIGH (Jackson databind) -->
         <!-- Fix: upgrade to 2.14.0+ -->
