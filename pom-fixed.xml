@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ╔══════════════════════════════════════════════════════════════╗
+  ║  pom-fixed.xml — REMEDIATED version for demo purposes        ║
+  ║  To apply: cp pom-fixed.xml pom.xml && mvn clean verify      ║
+  ║  All changes are version-bump only. Zero code modifications. ║
+  ╚══════════════════════════════════════════════════════════════╝
+-->
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
+         http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>com.demo</groupId>
+    <artifactId>vulnerable-demo-app</artifactId>
+    <version>1.0.0-SNAPSHOT</version>
+    <packaging>jar</packaging>
+
+    <n>Vulnerable Demo App — FIXED</n>
+    <description>Remediated version: all CVEs resolved by version upgrades only.</description>
+
+    <properties>
+        <java.version>11</java.version>
+        <maven.compiler.source>11</maven.compiler.source>
+        <maven.compiler.target>11</maven.compiler.target>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+
+        <!--
+            ═══════════════════════════════════════════════════════
+            FIXED DEPENDENCY VERSIONS
+            Each line shows: old version → new version | CVE fixed
+            ═══════════════════════════════════════════════════════
+        -->
+
+        <!-- 2.14.1 → 2.17.1 | CVE-2021-44228, CVE-2021-45046 FIXED -->
+        <log4j.version>2.17.1</log4j.version>
+
+        <!-- 2.6.3 → 2.7.17  | CVE-2022-22965, CVE-2023-20883 FIXED
+             Also pulls in snakeyaml 1.33 and tomcat 9.0.81           -->
+        <spring.boot.version>2.7.17</spring.boot.version>
+
+        <!-- 2.13.2 → 2.14.3 | CVE-2022-42003, CVE-2022-42004 FIXED -->
+        <jackson.version>2.14.3</jackson.version>
+
+        <!-- 4.1.65.Final → 4.1.100.Final | CVE-2021-37137, CVE-2021-37136 FIXED -->
+        <netty.version>4.1.100.Final</netty.version>
+
+        <!-- 1.30 → 2.0 | CVE-2022-1471, CVE-2022-25857 FIXED -->
+        <snakeyaml.version>2.0</snakeyaml.version>
+
+        <!-- 2.6 → 2.11.0 | CVE-2021-29425 FIXED -->
+        <commons-io.version>2.11.0</commons-io.version>
+
+        <!-- 9.0.60 → 9.0.81 | CVE-2023-44487 FIXED -->
+        <tomcat.version>9.0.81</tomcat.version>
+
+        <!-- 5.6.2 → 5.8.8 | CVE-2023-34062, CVE-2023-34034 FIXED -->
+        <spring.security.version>5.8.8</spring.security.version>
+
+    </properties>
+
+    <dependencies>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+            <version>${spring.boot.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-actuator</artifactId>
+            <version>${spring.boot.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-web</artifactId>
+            <version>${spring.security.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-config</artifactId>
+            <version>${spring.security.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.logging.log4j</groupId>
+            <artifactId>log4j-core</artifactId>
+            <version>${log4j.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.logging.log4j</groupId>
+            <artifactId>log4j-api</artifactId>
+            <version>${log4j.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.logging.log4j</groupId>
+            <artifactId>log4j-slf4j-impl</artifactId>
+            <version>${log4j.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
+            <version>${jackson.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>io.netty</groupId>
+            <artifactId>netty-codec</artifactId>
+            <version>${netty.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>io.netty</groupId>
+            <artifactId>netty-handler</artifactId>
+            <version>${netty.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.yaml</groupId>
+            <artifactId>snakeyaml</artifactId>
+            <version>${snakeyaml.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>commons-io</groupId>
+            <artifactId>commons-io</artifactId>
+            <version>${commons-io.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.tomcat.embed</groupId>
+            <artifactId>tomcat-embed-core</artifactId>
+            <version>${tomcat.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <version>${spring.boot.version}</version>
+            <scope>test</scope>
+        </dependency>
+
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <version>${spring.boot.version}</version>
+            </plugin>
+            <plugin>
+                <groupId>org.owasp</groupId>
+                <artifactId>dependency-check-maven</artifactId>
+                <version>8.4.0</version>
+                <configuration>
+                    <!-- Will now PASS — no HIGH/CRITICAL CVEs -->
+                    <failBuildOnCVSS>7</failBuildOnCVSS>
+                    <format>HTML</format>
+                    <outputDirectory>${project.build.directory}/dependency-check-report</outputDirectory>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
+</project>

@@ -1,0 +1,224 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
+         http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>com.demo</groupId>
+    <artifactId>vulnerable-demo-app</artifactId>
+    <version>1.0.0-SNAPSHOT</version>
+    <packaging>jar</packaging>
+
+    <name>Vulnerable Demo App</name>
+    <description>
+        A demo Spring Boot application intentionally using vulnerable dependency versions
+        to showcase CVE detection and remediation workflows.
+        DO NOT USE IN PRODUCTION.
+    </description>
+
+    <properties>
+        <java.version>11</java.version>
+        <maven.compiler.source>11</maven.compiler.source>
+        <maven.compiler.target>11</maven.compiler.target>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+
+        <!--
+            =====================================================================
+            VULNERABLE DEPENDENCY VERSIONS — intentionally pinned to old releases
+            Each version corresponds to one or more CVEs listed in docs/CVE-REPORT.md
+            =====================================================================
+        -->
+
+        <!-- CVE-2021-44228 (Log4Shell) + CVE-2021-45046 — CRITICAL -->
+        <!-- Fix: upgrade to 2.17.1+ -->
+        <log4j.version>2.14.1</log4j.version>
+
+        <!-- CVE-2022-22965 (Spring4Shell) — CRITICAL -->
+        <!-- Fix: upgrade spring-webmvc to 5.3.18+ (pulled in by spring-boot 2.6.5+) -->
+        <spring.boot.version>2.6.3</spring.boot.version>
+
+        <!-- CVE-2022-42003 / CVE-2022-42004 — HIGH (Jackson databind) -->
+        <!-- Fix: upgrade to 2.14.0+ -->
+        <jackson.version>2.13.2</jackson.version>
+
+        <!-- CVE-2023-20883 (Spring Boot Actuator DoS) — HIGH -->
+        <!-- Already covered by spring.boot.version above; listed for clarity -->
+
+        <!-- CVE-2021-37137 / CVE-2021-37136 — HIGH (Netty) -->
+        <!-- Transitive via spring-webflux; Fix: 4.1.68.Final+ -->
+        <netty.version>4.1.65.Final</netty.version>
+
+        <!-- CVE-2022-23307 (Apache Chainsaw via Log4j extras) — CRITICAL -->
+        <!-- Fix: remove or upgrade log4j-extras; pinned here explicitly -->
+        <log4j-extras.version>1.2.17</log4j-extras.version>
+
+        <!-- CVE-2023-34062 / CVE-2023-34034 — HIGH (Spring Security) -->
+        <!-- Fix: upgrade to 5.8.8+ / 6.1.6+ -->
+        <spring.security.version>5.6.2</spring.security.version>
+
+        <!-- CVE-2023-44487 (HTTP/2 Rapid Reset — Tomcat) — HIGH -->
+        <!-- Fix: upgrade to 10.1.14+ / 9.0.81+ -->
+        <tomcat.version>9.0.60</tomcat.version>
+
+        <!-- CVE-2022-1471 (SnakeYAML RCE) — CRITICAL -->
+        <!-- Transitive via spring-boot-starter; Fix: 2.0+ -->
+        <snakeyaml.version>1.30</snakeyaml.version>
+
+        <!-- CVE-2021-29425 (Apache Commons IO) — MEDIUM -->
+        <!-- Fix: upgrade to 2.7+ -->
+        <commons-io.version>2.6</commons-io.version>
+
+        <!-- CVE-2022-25857 (SnakeYAML DoS) — HIGH — also fixed by 2.0+ -->
+        <!-- already pinned above via snakeyaml.version -->
+
+    </properties>
+
+    <dependencies>
+
+        <!-- ════════════════════════════════════════════════════════
+             SPRING BOOT — brings in spring-webmvc, tomcat, snakeyaml
+             CVE-2022-22965, CVE-2023-20883, CVE-2022-1471, CVE-2023-44487
+             ════════════════════════════════════════════════════════ -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+            <version>${spring.boot.version}</version>
+            <!-- Transitive: spring-webmvc, tomcat-embed-core, snakeyaml -->
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-actuator</artifactId>
+            <version>${spring.boot.version}</version>
+        </dependency>
+
+        <!-- ════════════════════════════════════════════════════════
+             SPRING SECURITY
+             CVE-2023-34062, CVE-2023-34034
+             Fix: 5.8.8+
+             ════════════════════════════════════════════════════════ -->
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-web</artifactId>
+            <version>${spring.security.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-config</artifactId>
+            <version>${spring.security.version}</version>
+        </dependency>
+
+        <!-- ════════════════════════════════════════════════════════
+             LOG4J2 — Log4Shell
+             CVE-2021-44228 (CRITICAL), CVE-2021-45046 (CRITICAL)
+             Fix: 2.17.1+
+             ════════════════════════════════════════════════════════ -->
+        <dependency>
+            <groupId>org.apache.logging.log4j</groupId>
+            <artifactId>log4j-core</artifactId>
+            <version>${log4j.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.logging.log4j</groupId>
+            <artifactId>log4j-api</artifactId>
+            <version>${log4j.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.logging.log4j</groupId>
+            <artifactId>log4j-slf4j-impl</artifactId>
+            <version>${log4j.version}</version>
+        </dependency>
+
+        <!-- ════════════════════════════════════════════════════════
+             JACKSON DATABIND
+             CVE-2022-42003 (HIGH), CVE-2022-42004 (HIGH)
+             Fix: 2.14.0+
+             ════════════════════════════════════════════════════════ -->
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
+            <version>${jackson.version}</version>
+        </dependency>
+
+        <!-- ════════════════════════════════════════════════════════
+             NETTY (pulled in by spring-webflux / reactor-netty)
+             CVE-2021-37137 (HIGH), CVE-2021-37136 (HIGH)
+             Fix: 4.1.68.Final+
+             ════════════════════════════════════════════════════════ -->
+        <dependency>
+            <groupId>io.netty</groupId>
+            <artifactId>netty-codec</artifactId>
+            <version>${netty.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>io.netty</groupId>
+            <artifactId>netty-handler</artifactId>
+            <version>${netty.version}</version>
+        </dependency>
+
+        <!-- ════════════════════════════════════════════════════════
+             SNAKEYAML (transitive via spring-boot-starter)
+             CVE-2022-1471 (CRITICAL), CVE-2022-25857 (HIGH)
+             Fix: 2.0+
+             ════════════════════════════════════════════════════════ -->
+        <dependency>
+            <groupId>org.yaml</groupId>
+            <artifactId>snakeyaml</artifactId>
+            <version>${snakeyaml.version}</version>
+        </dependency>
+
+        <!-- ════════════════════════════════════════════════════════
+             APACHE COMMONS IO
+             CVE-2021-29425 (MEDIUM) — path traversal
+             Fix: 2.7+
+             ════════════════════════════════════════════════════════ -->
+        <dependency>
+            <groupId>commons-io</groupId>
+            <artifactId>commons-io</artifactId>
+            <version>${commons-io.version}</version>
+        </dependency>
+
+        <!-- ════════════════════════════════════════════════════════
+             TOMCAT EMBED (transitive via spring-boot-starter-web)
+             CVE-2023-44487 (HIGH) — HTTP/2 Rapid Reset
+             Fix: 9.0.81+
+             ════════════════════════════════════════════════════════ -->
+        <dependency>
+            <groupId>org.apache.tomcat.embed</groupId>
+            <artifactId>tomcat-embed-core</artifactId>
+            <version>${tomcat.version}</version>
+        </dependency>
+
+        <!-- Test scope -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <version>${spring.boot.version}</version>
+            <scope>test</scope>
+        </dependency>
+
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <version>${spring.boot.version}</version>
+            </plugin>
+            <!-- OWASP Dependency Check — run: mvn dependency-check:check -->
+            <plugin>
+                <groupId>org.owasp</groupId>
+                <artifactId>dependency-check-maven</artifactId>
+                <version>8.4.0</version>
+                <configuration>
+                    <failBuildOnCVSS>7</failBuildOnCVSS>
+                    <format>HTML</format>
+                    <outputDirectory>${project.build.directory}/dependency-check-report</outputDirectory>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
+</project>

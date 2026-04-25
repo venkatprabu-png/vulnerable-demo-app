@@ -1,0 +1,34 @@
+server:
+  port: 8080
+  # Embedded Tomcat 9.0.60 — vulnerable to CVE-2023-44487 (HTTP/2 Rapid Reset)
+  # Fix: upgrade spring-boot to 2.7.17+ which pulls in tomcat 9.0.81+
+  tomcat:
+    max-threads: 200
+    accept-count: 100
+
+spring:
+  application:
+    name: vulnerable-demo-app
+  # SnakeYAML 1.30 parses this file — CVE-2022-1471 (CRITICAL)
+  # Fix: upgrade snakeyaml to 2.0+ (pulled in by spring-boot 2.7.x+)
+  jackson:
+    serialization:
+      write-dates-as-timestamps: false
+    default-property-inclusion: non_null
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,metrics
+  endpoint:
+    health:
+      show-details: always
+
+logging:
+  # Log4j 2 configuration — using log4j-slf4j-impl 2.14.1
+  # CVE-2021-44228 (Log4Shell) — CRITICAL
+  # CVE-2021-45046             — CRITICAL
+  level:
+    root: INFO
+    com.demo: DEBUG
