@@ -41,7 +41,7 @@
         <spring.boot.version>2.7.17</spring.boot.version>
 
         <!-- 2.13.2 → 2.14.3 | CVE-2022-42003, CVE-2022-42004 FIXED -->
-        <jackson.version>2.14.3</jackson.version>
+        <jackson.version>com.fasterxml.jackson.core/jackson-databind@2.7.9.1-lineaje-1</jackson.version>
 
         <!-- 4.1.65.Final → 4.1.100.Final | CVE-2021-37137, CVE-2021-37136 FIXED -->
         <netty.version>4.1.100.Final</netty.version>

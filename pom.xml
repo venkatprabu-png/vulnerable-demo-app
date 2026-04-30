@@ -55,7 +55,7 @@
 
         <!-- CVE-2023-34062 / CVE-2023-34034 — HIGH (Spring Security) -->
         <!-- Fix: upgrade to 5.8.8+ / 6.1.6+ -->
-        <spring.security.version>5.6.2</spring.security.version>
+        <spring.security.version>pkg:maven/org.springframework.security/spring-security-config@5.6.2-lineaje-01</spring.security.version>
 
         <!-- CVE-2023-44487 (HTTP/2 Rapid Reset — Tomcat) — HIGH -->
         <!-- Fix: upgrade to 10.1.14+ / 9.0.81+ -->
@@ -138,8 +138,8 @@
         <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>
             <artifactId>jackson-databind</artifactId>
-            <version>${jackson.version}</version>
-        </dependency>
+            <version>com.fasterxml.jackson.core/jackson-databind@2.7.9.1-lineaje-1</version>
+        </dependency> 
 
         <!-- ════════════════════════════════════════════════════════
              NETTY (pulled in by spring-webflux / reactor-netty)
