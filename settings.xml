@@ -1,0 +1,55 @@
+<settings>
+  <!--  add lineaje server configuration and credentials -->
+  <servers>
+    <server>
+      <configuration>
+        <httpConfiguration>
+          <all>
+            <usePreemptive>true</usePreemptive>
+          </all>
+        </httpConfiguration>
+      </configuration>
+      <id>lineaje-artifactory</id>
+      <username>dylan@gladogmi.fr.nf</username>
+      <password>by9RYnB3TkxCUXRFb0RWU1JNSElWdnBuaGlqN1FtNTV4NWxRK1JVczBoQU1ITGZkQTVBTnNGWWVXOFR5ZEZ3TjUrbnNyT2RSVWFDSGhBRlFsUjZ6aDdEbWl1L1NwUEJ3UE9ZdkJGSjNKNUxOK00xK2JhSUNXcFdXazEyQzNHYU0wZlAycWZ6MW85QXVrUisrOFZsa3ltVDFoeHVCNU5YWHZYakJBTkhXVGFsTUZGemhwWlRKblZNTW92Y1pHSkFMOW1EWnNmZ1QxTlZoTEJ5cVBwd1ZWWUNLU2tvT245U01hb2FjMXBHYmtNTnFoOXpwRG1vZXhWWGFtY0F0YUdRWWN0NkYyeGpsWkhKenJJSTR2MGVhekVlS1JUaGlBQVlDR0ZFN3VYL25XMzhieXg0SW81bER5MlRpQThscVJidExRbE1nVFlhNzB5WWpuZWtpbnp1b3NGNTRpczEraXJUaFB5UEVXdXB6a2p5N3orUFVxNHg3UktqVXM1K2MrMHRabVlYRnB1UFFFL2IrWjFzS3Z3aEJRRDBlUVcrVm9LWEgxOGlGUTJpMTRTSzdPaEpqUXJtaGswVnN6d3NGT25SRTcvcE5pUStCY0lCVVVONWZMYXVGNXUvdGM3MjJ5dEc5VTZkZnl6UVFjTTRKWElhVXhzOUlRRWVZZ3BSd0t0dE16TUQzUVNUWHBwVTc5eUVxOXlqR09MTzVyTnVzV3hlVzk2eVp1NFFYdzNQSGxEZUY1MkowRG5uTWRSREswY2N5bmlEcDBINGozVytMNXlTaU9aOHpycHhGREttdGd2MnMyYitYNll4MnE1VDFhbDROeDU2MERndmdEcmY0Skd3L3VMdlpBRzRjVlZMN2ZBSkhRM2VPb1BRVVREdVRXTXJZeVkyY3FERHVvWm4rTUNGQTE4L09SMFYxTEdsWWt3M0JjdUJvcGVEdE0xcEZHUDJXRUM1bDlvdHdwOTZrTDhVakdiNmI0ZFpLSWlHOWFSNDlhalNXTXVJRUxQRDdpWEdwaXUwc1dMVUtHRGRiNm9MSkNmTFZ5Y0N0Sks0eDNRZEZpcFlEcmJPMjBHRFZuVGhDVlZKZnZ5RkZROStMaXZJVDN3VWFFRVdkRXNSZHB1MmZrdHArbndBNU14M0lLbkY3Ynp2VDBIclRYSjhDYjNnaGd5TEU4OVBocFhqZmpoU3c5V0MrUGtrV05odFBKZ2s3OS92K3cxc0JJUDZUaDJsNThJT2M4bncwaFd6NFFRNXpJU1lMQUg3YXBZZ3RNK2ZWSCsrMEhPbk0vMytjSURlSGhLbExBZE1NeXZwQ3ZCcGFETzRsVWRsWENsMVl1L3F1VG</password>
+    </server>
+  </servers>
+  <!--  Tell the build tool to use this server for everything except plugins -->
+  <mirrors>
+    <mirror>
+      <id>lineaje-fortknox-artifactory</id>
+      <mirrorOf>*,!plugin-repository,!central-plugins</mirrorOf>
+      <url>https://observe.fortknox.v2.prod.veedna.com/artifactory/gos-all-proxy-maven</url>
+    </mirror>
+  </mirrors>
+  <!--  Create a build profile for Lineaje server -->
+  <profiles>
+    <profile>
+      <id>lineaje-fortknox-profile</id>
+      <activation>
+        <activeByDefault>true</activeByDefault>
+      </activation>
+      <repositories>
+        <repository>
+          <id>lineaje-fortknox-artifactory</id>
+          <url>https://observe.fortknox.commercialdev.dev.veedna.com/artifactory/gos-all-proxy-maven</url>
+          <releases><enabled>true</enabled></releases>
+          <snapshots><enabled>true</enabled></snapshots>
+        </repository>
+      </repositories>
+      <!--  Go to mavencentral for plugins -->
+      <pluginRepositories>
+        <pluginRepository>
+          <id>central-plugins</id>
+          <url>https://repo.maven.apache.org/maven2</url>
+          <releases><enabled>true</enabled></releases>
+          <snapshots><enabled>true</enabled></snapshots>
+        </pluginRepository>
+      </pluginRepositories>
+    </profile>
+  </profiles>
+  <!--  Make the lineaje fortknox profile as the active profile -->
+  <activeProfiles>
+    <activeProfile>lineaje-fortknox-profile</activeProfile>
+  </activeProfiles>
+</settings>
